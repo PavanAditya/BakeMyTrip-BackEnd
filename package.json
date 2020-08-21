@@ -1,0 +1,17 @@
+{
+    "name": "bakemytrip-backend",
+    "version": "1.0.0",
+    "description": "The Node.js backend written for supporting the frontend react app created for cloning MakeMyTrip application ✈✈",
+    "main": "server.js",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "./node_modules/.bin/eslint **/*.js"
+    },
+    "author": "Pavan Aditya M S",
+    "license": "MIT",
+    "dependencies": {
+        "eslint": "^6.8.0",
+        "express": "^4.17.1"
+    }
+}
