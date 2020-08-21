@@ -1,6 +1,6 @@
-# Facebook Backend
+# Bake My Trip - Backend
 
-> The Node.js backend written for supporting the frontend react app created for cloning facebook upto the possible extent 😜😜
+> The Node.js backend written for supporting the frontend react app created for cloning MakeMyTrip application ✈✈
 
 ## Client Side Technology - React
 ## API Technology - NodeJS and Express
