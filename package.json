@@ -1,5 +1,5 @@
 {
-    "name": "bakemytrip-backend",
+    "name": "packurbags-backend",
     "version": "1.0.0",
     "description": "The Node.js backend written for supporting the frontend react app created for cloning MakeMyTrip application ✈✈",
     "main": "server.js",

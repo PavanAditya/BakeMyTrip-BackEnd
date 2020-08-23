@@ -54,8 +54,8 @@ app.get('/', (req, res) => {
         },
         body: `{
             "to": "+917386557597",
-            "from": "BMTSMS",
-            "content": "Welcome to Bake My Trip. Your Account is created Successfully. Please click the below link to confirm your phone number.",
+            "from": "PUBSMS",
+            "content": "Welcome to Pack Ur Bags. Your Account is created Successfully. Please click the below link to confirm your phone number.",
             "dlr": "yes",
             "dlr-level": "3",
             "dlr-url": "https://pavanaditya.com"
@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
         message: 'Success',
         status: 200,
         data: {
-            appName: 'Bake My Trip',
+            appName: 'Pack Ur Bags',
             routeName: 'Server Test Route',
             workingStatus: 'Working as expected'
         }

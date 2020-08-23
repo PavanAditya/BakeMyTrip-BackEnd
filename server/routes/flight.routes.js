@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
         message: 'Success',
         status: 200,
         data: {
-            appName: 'Bake My Trip',
+            appName: 'Pack Ur Bags',
             routeName: 'Flight Service Test Route',
             workingStatus: 'Working as expected'
         }

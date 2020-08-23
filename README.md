@@ -1,4 +1,4 @@
-# Bake My Trip - Backend
+# Pack Ur Bags - Backend
 
 > The Node.js backend written for supporting the frontend react app created for cloning MakeMyTrip application ✈✈
 
