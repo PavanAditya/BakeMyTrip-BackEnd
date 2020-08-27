@@ -1,7 +1,6 @@
 // ! npm imports
 const express = require('express');
 const bodyParser = require('body-parser');
-var request = require('request');
 // ! npm imports
 
 // ! linked imports
@@ -43,34 +42,10 @@ app.use((req, resp, next) => {
 // ! Backend Test Route
 app.get('/', (req, res) => {
 
-    console.log('object');
-    const options = {
-        'method': 'POST',
-        'url': 'https://rest-api.d7networks.com/secure/send',
-        'headers': {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic eXhpYzY2Nzc6NmhIWW5PbFc' // ? dup
-                // 'Authorization': 'Basic eXhpYzY2Nzc6NmhIWW5PbFc=' // ? original
-        },
-        body: `{
-            "to": "+917386557597",
-            "from": "PUBSMS",
-            "content": "Welcome to Pack Ur Bags. Your Account is created Successfully. Please click the below link to confirm your phone number.",
-            "dlr": "yes",
-            "dlr-level": "3",
-            "dlr-url": "https://pavanaditya.com"
-        }`
-    };
-
-    request(options, function(error, response) {
-        if (error) throw new Error(error);
-        console.log(response.body);
-    });
-
     res.status(200).send({
         message: 'Success',
         status: 200,
-        data: {
+        dataObject: {
             appName: 'Pack Ur Bags',
             routeName: 'Server Test Route',
             workingStatus: 'Working as expected'

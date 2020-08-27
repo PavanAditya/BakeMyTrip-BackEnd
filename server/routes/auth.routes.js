@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     res.status(200).send({
         message: 'Success',
         status: 200,
-        data: {
+        dataObject: {
             appName: 'Pack Ur Bags',
             routeName: 'Auth Service Test Route',
             workingStatus: 'Working as expected'
