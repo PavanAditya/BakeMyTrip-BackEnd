@@ -1,8 +1,8 @@
 const joi = require('joi');
 
 const joiSchemaForSignUpForm = joi.object().keys({
-    password: joi.string().regex(/^{8,30}$/),
-    confirmPassword: joi.string().regex(/^{8,30}$/),
+    password: joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
+    confirmPassword: joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
     // userName: joi.string().regex(/^[a-zA-Z]+$/),
     firstName: joi.string().regex(/^[a-zA-Z]+$/),
     lastName: joi.string().regex(/^[a-zA-Z]+$/),
@@ -21,7 +21,7 @@ const schemaForSignUpForm = (req) => joi.validate({
 
 
 const joiSchemaForEmailSignInForm = joi.object().keys({
-    password: joi.string().regex(/^{8,30}$/),
+    password: joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
     email: joi.string().regex(/^[\w\.?]+@\w+\.(com|net|edu)$/)
 });
 const schemaForEmailSignInForm = (req) => joi.validate({
@@ -30,7 +30,7 @@ const schemaForEmailSignInForm = (req) => joi.validate({
 }, joiSchemaForEmailSignInForm);
 
 const joiSchemaForPhNumSignInForm = joi.object().keys({
-    password: joi.string().regex(/^{8,30}$/),
+    password: joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
     email: joi.string().regex(/^[\w\.?]+@\w+\.(com|net|edu)$/)
 });
 const schemaForPhNumSignInForm = (req) => joi.validate({

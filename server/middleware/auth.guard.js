@@ -20,7 +20,7 @@ const authGuard = async(req, res, next) => {
                 dataObject: {
                     appName: 'Pack Ur Bags',
                     routeName: 'Check at auth guard middleware',
-                    data: `User not found. Token provided is invalid or expired. Please try the request logging in again.`
+                    data: 'User not found. Token provided is invalid or expired. Please try the request logging in again.'
                 }
             });
         }
@@ -32,7 +32,7 @@ const authGuard = async(req, res, next) => {
             dataObject: {
                 appName: 'Pack Ur Bags',
                 routeName: 'Check at auth guard middleware',
-                data: `User token provided is invalid or expired. Please try the request logging in again.`
+                data: 'User token provided is invalid or expired. Please try the request logging in again.'
             }
         });
     }

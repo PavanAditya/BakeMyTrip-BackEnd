@@ -4,14 +4,14 @@ const { userSchema } = require('../models/user.model');
 
 const googlePassportStratergy = () => {
     passport.use(new GoogleStratergy({
-            clientID: '',
-            clientSecret: '',
-            // callbackURL: 'https://packurbags.herokuapp.com/api/v1/auth/passport/google/generateToken'
-            callbackURL: 'http://localhost:3000/api/v1/auth/passport/google/generateToken'
+            clientID: '265723013319-30d2nncg9sp63eu8gebdgmrctd88esd9.apps.googleusercontent.com',
+            clientSecret: '3Sl_tl8s6y3rGCXZ8EdljA8u',
+            // callbackURL: 'https://packurbags.pavanaditya.com/api/v1/passport/google/generateToken'
+            callbackURL: 'http://localhost:4000/api/v1/passport/google/generateToken'
         },
         async(accessToken, refreshtoken, profile, done) => {
             const userEmail = profile.emails[0].value;
-            const userData = new userSchema.findOne({
+            const userData = await userSchema.findOne({
                 email: userEmail
             });
             if (userData) {
@@ -55,7 +55,7 @@ const googlePassportStratergy = () => {
                         }`
                         };
 
-                        request(options, function(error, response) {
+                        request(options, (error, response) => {
                             if (error) {
                                 done('User account created. SMS sending failed at d7networks server level for Google signup.', userData);
                             } else {
@@ -70,7 +70,7 @@ const googlePassportStratergy = () => {
             }
         }
     ));
-}
+};
 
 module.exports = {
     googlePassportStratergy: googlePassportStratergy

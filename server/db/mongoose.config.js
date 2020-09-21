@@ -7,8 +7,8 @@ const urlParser = {
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(url, urlParser)
-    .then(resp => {
-        console.log('Database connected Successfully', resp);
+    .then(() => {
+        console.log('Database connected Successfully');
     })
     .catch(err => {
         console.log('Database connection Failed', err);

@@ -1,6 +1,6 @@
 const { userSchema } = require('../models/user.model');
 const joiValidators = require('../helpers/joi.validators');
-var request = require('request');
+const request = require('request');
 
 const signInWithEmail = async(req, res, next) => {
     const {
@@ -78,7 +78,7 @@ const signInWithEmail = async(req, res, next) => {
             }
         });
     }
-}
+};
 
 const signInWithPhNum = async(req, res, next) => {
     const {
@@ -156,7 +156,7 @@ const signInWithPhNum = async(req, res, next) => {
             }
         });
     }
-}
+};
 
 const signInWithGoogle = async(req, res) => {
     try {
@@ -207,6 +207,7 @@ const signUp = async(req, res, next) => {
     if (req.body.password === req.body.confirmPassword) {
         const userEmail = req.body.email;
         const userPhNum = req.body.mobileNumber;
+        const user = new userSchema(req.body);
         const userWithEmail = new userSchema.findOne({
             email: userEmail
         });
@@ -250,16 +251,16 @@ const signUp = async(req, res, next) => {
                                 // 'Authorization': 'Basic eXhpYzY2Nzc6NmhIWW5PbFc=' // ? original
                         },
                         body: `{
-                            "to": "+91${userPhNum}",
-                            "from": "PUBSMS",
-                            "content": "Hi ${userFirstName}\nWelcome to Pack Ur Bags. Your Account with a first name: ${userFirstName} is created Successfully.\nNow you can browse through your desired flights and can add them to you journey favourites list. Please verify your mobile number as soon as possible so that you can also get the access for booking tickets for any journey.",
-                            "dlr": "yes",
-                            "dlr-level": "3",
-                            "dlr-url": "https://packurbags.pavanaditya.com"
+                            'to': '+91${userPhNum}',
+                            'from': 'PUBSMS',
+                            'content': 'Hi ${userFirstName}\nWelcome to Pack Ur Bags. Your Account with a first name: ${userFirstName} is created Successfully.\nNow you can browse through your desired flights and can add them to you journey favourites list. Please verify your mobile number as soon as possible so that you can also get the access for booking tickets for any journey.',
+                            'dlr': 'yes',
+                            'dlr-level': '3',
+                            'dlr-url': 'https://packurbags.pavanaditya.com'
                         }`
                     };
 
-                    request(options, function(error, response) {
+                    request(options, (error, response) => {
                         if (error) {
                             // throw new Error(error);
                             res.status(203).send({
@@ -323,7 +324,7 @@ const signUp = async(req, res, next) => {
 const logout = async(req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(userAuthToken => {
-            return userAuthToken != req.token;
+            return userAuthToken !== req.token;
         });
         req.user.signUp = false;
         const logoutUser = await req.user.save();

@@ -10,11 +10,11 @@ const bookingRoute = require('./routes/booking.routes');
 const flightRoute = require('./routes/flight.routes');
 const passportRoute = require('./routes/passport.routes');
 const userRoute = require('./routes/user.routes');
-// const passportConfig = require();
+const passportConfig = require('./helpers/passport.config');
 // ! linked imports
 
 // ! operating vars
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const app = express();
 const httpServer = app.listen(PORT, () => {});
 // ! operating vars
@@ -36,7 +36,7 @@ app.use((req, resp, next) => {
 // ! CORS configuration
 
 // ! Passprot Confogurations
-// passportConfig.passportConfig(app);
+passportConfig.passportConfig(app);
 // ! Passprot Confogurations
 
 // ! Backend Test Route

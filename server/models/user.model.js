@@ -1,7 +1,7 @@
-const uniqueValidator = require('mongoose-unique-validator')
+const uniqueValidator = require('mongoose-unique-validator');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const mongoose = require('../db/mongoose.config');
+const { mongoose } = require('../db/mongoose.config');
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -58,20 +58,20 @@ userSchema.methods.generateAuthToken = async function() {
     user.tokens = user.tokens.push(userAuthToken);
     await user.save();
     return {
-        token,
+        userAuthToken,
         user
     };
-}
+};
 
 userSchema.statics.findByCredentialsEmail = async(email, password) => {
-    const user = await User.findOne({
+    const user = await userSchema.findOne({
         email: email
     });
 
     if (!user) {
         return null;
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
         return false;
     }
@@ -79,14 +79,14 @@ userSchema.statics.findByCredentialsEmail = async(email, password) => {
 };
 
 userSchema.statics.findByCredentialsPhNum = async(mobileNumber, password) => {
-    const user = await User.findOne({
+    const user = await userSchema.findOne({
         mobileNumber: mobileNumber
     });
 
     if (!user) {
         return null;
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
         return false;
     }
@@ -101,6 +101,8 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
+const mongooseUserSchema = new mongoose.model('users', userSchema);
+
 module.exports = {
-    userSchema: mongoose.model('users', userSchema)
+    userSchema: mongooseUserSchema
 };
