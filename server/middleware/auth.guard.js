@@ -4,12 +4,10 @@ const { userSchema } = require('../models/user.model');
 const authGuard = async(req, res, next) => {
     try {
         const userAuthToken = req.header('PUB_AUTH').replace('PUB_TOKEN_BEARER ', '');
-        // const userData = await userSchema.findOne({
-        //     'tokens.token': userAuthToken
-        // });
         const UserDetailsFromToken = jwt.verify(userAuthToken, 'msp-packurbags');
         const userData = await userSchema.findOne({
-            email: UserDetailsFromToken.email
+            email: UserDetailsFromToken.email,
+            tokens: userAuthToken
         });
         if (userData) {
             req.user = userData;
@@ -39,5 +37,5 @@ const authGuard = async(req, res, next) => {
 };
 
 module.exports = {
-    authGuard: authGuard
+    authGuard
 };

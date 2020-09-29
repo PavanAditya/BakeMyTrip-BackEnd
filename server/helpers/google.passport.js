@@ -17,7 +17,7 @@ const googlePassportStratergy = () => {
             if (userData) {
                 const userLoginData = await userData.generateAuthToken();
                 if (userLoginData) {
-                    userData.tokens = userData.tokens.push(userLoginData.token);
+                    // userData.tokens.push(userLoginData.token); // ? not required
                     userData.save();
                     return done(null, userData);
                 }
@@ -28,8 +28,10 @@ const googlePassportStratergy = () => {
                 newUser.email = profile.emails[0].value;
                 newUser.firstName = displayName[0];
                 newUser.lastName = displayName[1];
-                newUser.mobileNumber = profile.mobileNumber[1];
-                newUser.tokens = newUser.tokens.push(accessToken);
+                newUser.password = 'password1';
+                newUser.signUp = true;
+                newUser.mobileNumber = profile.mobileNumber ? profile.mobileNumber[1] : null;
+                newUser.tokens.push(accessToken);
                 const userData = await newUser.save();
                 if (!userData) {
                     done('User account cannot be created. Failed at Passport Signup level.');
@@ -57,16 +59,16 @@ const googlePassportStratergy = () => {
 
                         request(options, (error, response) => {
                             if (error) {
-                                done('User account created. SMS sending failed at d7networks server level for Google signup.', userData);
+                                done('User account created. SMS sending failed at d7networks server level for Google signup.', newUser);
                             } else {
-                                done(null, userData);
+                                done(null, newUser);
                             }
                         });
                     } catch (err) {
-                        done('User account created. SMS sending failed at pack ur bags server level for Google signup.', userData);
+                        done('User account created. SMS sending failed at pack ur bags server level for Google signup.', newUser);
                     }
                 }
-                done(null, userData);
+                done(null, newUser);
             }
         }
     ));

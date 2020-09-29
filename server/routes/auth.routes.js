@@ -3,7 +3,7 @@ const router = express.Router();
 const { authController } = require('../controllers/auth.controllers');
 
 // ! Backend Test Auth Route
-// ? http://localhost:3000/api/v1/auth
+// ? ${BASE_URL}/auth
 router.get('/', (req, res) => {
     res.status(200).send({
         message: 'Success',

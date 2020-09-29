@@ -2,7 +2,7 @@ const { userSchema } = require('../models/user.model');
 const joiValidators = require('../helpers/joi.validators');
 const request = require('request');
 
-const signInWithEmail = async(req, res, next) => {
+const signInWithEmail = async (req, res, next) => {
     const {
         error,
         value
@@ -73,14 +73,14 @@ const signInWithEmail = async(req, res, next) => {
                 routeName: 'SignIn User Route',
                 data: {
                     errorMessage: 'Error encountered while handling the login request.',
-                    error: err
+                    error: `${err}`
                 }
             }
         });
     }
 };
 
-const signInWithPhNum = async(req, res, next) => {
+const signInWithPhNum = async (req, res, next) => {
     const {
         error,
         value
@@ -151,18 +151,19 @@ const signInWithPhNum = async(req, res, next) => {
                 routeName: 'SignIn User Route',
                 data: {
                     errorMessage: 'Error encountered while handling the login request.',
-                    error: err
+                    error: `${err}`
                 }
             }
         });
     }
 };
 
-const signInWithGoogle = async(req, res) => {
+const signInWithGoogle = async (req, res) => {
     try {
         if (req.isAuthenticated()) {
             res.status(200);
-            res.redirect(`http://localhost:4200?token=${req.user.token}`);
+            res.redirect(`http://localhost:3000?token=${req.user.tokens[req.user.tokens.length - 1]}`);
+            // res.redirect(`https://packurbags.pavanaditya.com?token=${req.user.tokens[req.user.tokens.length - 1]}`);
         } else {
             res.status(404).send({
                 message: 'User Not Found.',
@@ -183,14 +184,14 @@ const signInWithGoogle = async(req, res) => {
                 routeName: 'Google SignIn User Route',
                 data: {
                     errorMessage: 'Error encountered while handling the Google Login request.',
-                    error: err
+                    error: `${err}`
                 }
             }
         });
     }
 };
 
-const signUp = async(req, res, next) => {
+const signUp = async (req, res, next) => {
     const {
         error,
         value
@@ -248,7 +249,7 @@ const signUp = async(req, res, next) => {
                         'headers': {
                             'Content-Type': 'application/x-www-form-urlencoded',
                             'Authorization': 'Basic eXhpYzY2Nzc6NmhIWW5PbFc' // ? dup
-                                // 'Authorization': 'Basic eXhpYzY2Nzc6NmhIWW5PbFc=' // ? original
+                            // 'Authorization': 'Basic eXhpYzY2Nzc6NmhIWW5PbFc=' // ? original
                         },
                         body: `{
                             'to': '+91${userPhNum}',
@@ -300,7 +301,7 @@ const signUp = async(req, res, next) => {
                             routeName: 'Signup User Route',
                             data: {
                                 errorMessage: 'SMS sending failed at pack ur bags server level.',
-                                errorData: error,
+                                error: `${err}`,
                                 firstName: userFirstName
                             }
                         }
@@ -321,7 +322,7 @@ const signUp = async(req, res, next) => {
     }
 };
 
-const logout = async(req, res) => {
+const logout = async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(userAuthToken => {
             return userAuthToken !== req.token;
@@ -358,7 +359,7 @@ const logout = async(req, res) => {
                 routeName: 'Logout User Route',
                 data: {
                     errorMessage: 'Error encountered while handling the logout request.',
-                    error: err
+                    error: `${err}`
                 }
             }
         });

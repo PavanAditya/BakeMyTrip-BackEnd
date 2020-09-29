@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { userController } = require('../controllers/user.controllers');
+const { authGuard } = require('../middleware/auth.guard');
 
 // ! Backend Test User Route
-// ? http://localhost:3000/api/v1/users
+// ? ${BASE_URL}/users
 router.get('/', (req, res) => {
     res.status(200).send({
         message: 'Success',
@@ -16,5 +17,13 @@ router.get('/', (req, res) => {
     });
 });
 // ! Backend Test User Route
+
+// ! Get All Users Details
+// ?  ${BASE_URL}/users/all
+router.get('/all', userController.allUserDetails);
+
+// ! Get Single User Details
+// ? ${BASE_URL}/users/one
+router.get('/one', authGuard, userController.singleUserDetails);
 
 module.exports = router;

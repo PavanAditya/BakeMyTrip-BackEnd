@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema({
     },
     mobileNumber: {
         type: String,
-        required: true,
         unique: true
     },
     password: {
@@ -55,7 +54,7 @@ userSchema.methods.generateAuthToken = async function() {
         mobileNumber: user.mobileNumber,
         // userName: user.userName
     }, 'msp-packurbags');
-    user.tokens = user.tokens.push(userAuthToken);
+    user.tokens.push(userAuthToken);
     await user.save();
     return {
         userAuthToken,

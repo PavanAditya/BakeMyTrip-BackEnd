@@ -3,7 +3,7 @@ const router = express.Router();
 const { adminController } = require('../controllers/admin.controllers');
 
 // ! Backend Test Admin Route
-// ? http://localhost:3000/api/v1/admin
+// ? ${BASE_URL}/admin
 router.get('/', (req, res) => {
     res.status(200).send({
         message: 'Success',

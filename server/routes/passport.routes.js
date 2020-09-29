@@ -4,7 +4,7 @@ const router = express.Router();
 const authController = require('../controllers/auth.controllers');
 
 // ! Backend Test Passport Route
-// ? http://localhost:3000/api/v1/passport
+// ? ${BASE_URL}/passport
 router.get('/', (req, res) => {
     res.status(200).send({
         message: 'Success',
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 // ! Backend Test Passport Route
 
 // ! Google Passport Login
-// ? http://localhost:3000/api/v1/passport/google
+// ? ${BASE_URL}/passport/google
 router.route('/google').get(passport.authenticate('google', {
     scope: [
         // 'profile',
@@ -34,7 +34,7 @@ router.route('/google').get(passport.authenticate('google', {
 // ! Google Passport Login
 
 // ! Failure Redirect route
-// ? http://localhost:3000/api/v1/passport/failure
+// ? ${BASE_URL}/passport/failure
 router.route('/failure').get((req, resp) => {
     // resp.redirect('https://packurbags.pavanaditya.com/');
     resp.redirect('http://localhost:3000/login');
@@ -42,7 +42,7 @@ router.route('/failure').get((req, resp) => {
 // ! Failure Redirect route
 
 // ! Generate auth token for google login
-// ? http://localhost:3000/api/v1/passport/google/generateToken
+// ? ${BASE_URL}/passport/google/generateToken
 router.route('/google/generateToken').get(passport.authenticate('google', {
     failureRedirect: '/failure'
 }), authController.signInWithGoogle);

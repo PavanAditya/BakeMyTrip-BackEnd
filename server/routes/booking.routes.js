@@ -3,7 +3,7 @@ const router = express.Router();
 const { bookingController } = require('../controllers/booking.controllers');
 
 // ! Backend Test  Booking Route
-// ? http://localhost:3000/api/v1/bookings
+// ? ${BASE_URL}/bookings
 router.get('/', (req, res) => {
     res.status(200).send({
         message: 'Success',
