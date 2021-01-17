@@ -17,4 +17,16 @@ router.get('/', (req, res) => {
 });
 // ! Backend Test Flight Route
 
+// ! Get All Flights Details
+// ?  ${BASE_URL}/flights/all
+router.get('/all', flightController.allFlightDetails);
+
+// ! Get Selected route Flights Details
+// ?  ${BASE_URL}/flights/:from/:to
+router.get('/flights/:from/:to', flightController.routeFlightDetails);
+
+// ! Get Single Flight Details
+// ?  ${BASE_URL}/flights/one/:id
+router.get('/flights/one/:id', flightController.singleFlightDetails);
+
 module.exports = router;
