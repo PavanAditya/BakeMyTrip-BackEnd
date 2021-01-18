@@ -12,11 +12,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    // userName: {
-    //     type: String,
-    //     required: true,
-    //     default: null
-    // },
     email: {
         type: String,
         required: true,
@@ -25,6 +20,11 @@ const userSchema = new mongoose.Schema({
     mobileNumber: {
         type: String,
         unique: true
+    },
+    picture: {
+        type: String,
+        required: false,
+        default: null
     },
     password: {
         type: String,
@@ -47,12 +47,11 @@ const userSchema = new mongoose.Schema({
 
 userSchema.plugin(uniqueValidator);
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
     const user = this;
     const userAuthToken = jwt.sign({
         email: user.email,
-        mobileNumber: user.mobileNumber,
-        // userName: user.userName
+        mobileNumber: user.mobileNumber
     }, 'msp-packurbags');
     user.tokens.push(userAuthToken);
     await user.save();
@@ -62,7 +61,15 @@ userSchema.methods.generateAuthToken = async function() {
     };
 };
 
-userSchema.statics.findByCredentialsEmail = async(email, password) => {
+userSchema.methods.getNewAuthToken = function (email, mobileNumber) {
+    const userAuthToken = jwt.sign({
+        email,
+        mobileNumber
+    }, 'msp-packurbags');
+    return userAuthToken;
+};
+
+userSchema.statics.findByCredentialsEmail = async (email, password) => {
     const user = await userSchema.findOne({
         email: email
     });
@@ -77,7 +84,7 @@ userSchema.statics.findByCredentialsEmail = async(email, password) => {
     return user;
 };
 
-userSchema.statics.findByCredentialsPhNum = async(mobileNumber, password) => {
+userSchema.statics.findByCredentialsPhNum = async (mobileNumber, password) => {
     const user = await userSchema.findOne({
         mobileNumber: mobileNumber
     });
@@ -92,7 +99,7 @@ userSchema.statics.findByCredentialsPhNum = async(mobileNumber, password) => {
     return user;
 };
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     const user = this;
     if (user.signUp) {
         user.password = await bcryptjs.hash(user.password, 10);

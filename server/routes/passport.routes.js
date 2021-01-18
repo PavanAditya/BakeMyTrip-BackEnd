@@ -37,7 +37,7 @@ router.route('/google').get(passport.authenticate('google', {
 // ? ${BASE_URL}/passport/failure
 router.route('/failure').get((req, resp) => {
     // resp.redirect('https://packurbags.pavanaditya.com/');
-    resp.redirect('http://localhost:3000/login');
+    resp.redirect('http://localhost:4200/login');
 });
 // ! Failure Redirect route
 

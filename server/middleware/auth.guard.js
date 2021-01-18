@@ -11,6 +11,7 @@ const authGuard = async(req, res, next) => {
         });
         if (userData) {
             req.user = userData;
+            req.token = userAuthToken;
         } else {
             res.status(404).send({
                 message: 'User Not Found.',

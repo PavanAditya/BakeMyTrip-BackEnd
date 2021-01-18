@@ -162,7 +162,8 @@ const signInWithGoogle = async (req, res) => {
     try {
         if (req.isAuthenticated()) {
             res.status(200);
-            res.redirect(`http://localhost:3000?token=${req.user.tokens[req.user.tokens.length - 1]}`);
+            console.log(req.user.tokens);
+            res.redirect(`http://localhost:4200?token=${req.user.tokens[req.user.tokens.length - 1]}`);
             // res.redirect(`https://packurbags.pavanaditya.com?token=${req.user.tokens[req.user.tokens.length - 1]}`);
         } else {
             res.status(404).send({
