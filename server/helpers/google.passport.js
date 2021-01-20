@@ -28,10 +28,10 @@ const googlePassportStratergy = () => {
                 newUser.email = profile.emails[0].value;
                 newUser.firstName = displayName[0];
                 newUser.lastName = displayName[1];
-                newUser.password = 'password1';
+                newUser.password = 'Password@1';
                 newUser.signUp = true;
-                newUser.picture = profile.photos[0] ? profile.photos[0].value : null;
-                newUser.mobileNumber = profile.mobileNumber ? profile.mobileNumber[1] : null;
+                newUser.picture = profile.photos[0] ? profile.photos[0].value : '';
+                newUser.mobileNumber = profile.mobileNumber ? profile.mobileNumber[1] : '';
                 newUser.tokens.push(accessToken);
                 let userData = await newUser.save()
                 const packUrBagsToken = userData.getNewAuthToken(newUser.email, newUser.mobileNumber);

@@ -51,7 +51,7 @@ const singleUserDetails = async (req, res, next) => {
                 status: 404,
                 dataObject: {
                     appName: 'Pack Ur Bags',
-                    routeName: 'All User Details Route',
+                    routeName: 'Single User Details Route',
                     data: 'No Users found.'
                 }
             });
@@ -72,7 +72,7 @@ const singleUserDetails = async (req, res, next) => {
             status: 500,
             dataObject: {
                 appName: 'Pack Ur Bags',
-                routeName: 'All User Details Route',
+                routeName: 'Single User Details Route',
                 data: {
                     errorMessage: 'Users fetch failed at DB level.',
                     error: `${err}`
@@ -82,9 +82,60 @@ const singleUserDetails = async (req, res, next) => {
     }
 };
 
+const updateUserDetails = async (req, res, next) => {
+    try {
+        const userProfile = await userSchema.findOneAndUpdate(
+            { email: req.body.email },
+            {
+                $set: {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    email: req.body.email,
+                    mobileNumber: req.body.mobileNumber,
+                    picture: req.body.picture
+                }
+            }, { new: true, useFindAndModify: false });
+        if (!userProfile) {
+            res.status(404).send({
+                message: 'User Not Found.',
+                status: 404,
+                dataObject: {
+                    appName: 'Pack Ur Bags',
+                    routeName: 'Update User Details Route',
+                    data: 'No Users found.'
+                }
+            });
+            return;
+        }
+        res.status(200).send({
+            message: 'User Data Updated Successfully',
+            status: 200,
+            dataObject: {
+                appName: 'Pack Ur Bags',
+                routeName: 'Update User Details Route',
+                data: [userProfile]
+            }
+        });
+    } catch (err) {
+        res.status(500).send({
+            message: 'Users Update Error.',
+            status: 500,
+            dataObject: {
+                appName: 'Pack Ur Bags',
+                routeName: 'Update User Details Route',
+                data: {
+                    errorMessage: 'Users update failed at DB level.',
+                    error: `${err}`
+                }
+            }
+        });
+    }
+};
+
 const userController = {
     allUserDetails,
-    singleUserDetails
+    singleUserDetails,
+    updateUserDetails
 };
 
 module.exports = { userController }

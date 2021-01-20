@@ -6,7 +6,7 @@ const signInWithEmail = async (req, res, next) => {
     const {
         error,
         value
-    } = joiValidators.schemaForEmailSignInForm();
+    } = joiValidators.schemaForEmailSignInForm(req);
 
     if (error) {
         const errorResponse = new Error(`Input Request Pattern doesn't match the requirements.`);
@@ -57,7 +57,7 @@ const signInWithEmail = async (req, res, next) => {
                         appName: 'Pack Ur Bags',
                         routeName: 'SignIn User Route',
                         data: {
-                            sessionToken: userLoginData.token,
+                            sessionToken: userLoginData.userAuthToken,
                             firstName: userLoginData.user.firstName
                         }
                     }
@@ -84,7 +84,7 @@ const signInWithPhNum = async (req, res, next) => {
     const {
         error,
         value
-    } = joiValidators.schemaForPhNumSignInForm();
+    } = joiValidators.schemaForPhNumSignInForm(req);
 
     if (error) {
         const errorResponse = new Error(`Input Request Pattern doesn't match the ideal signin form requirements.`);
@@ -135,7 +135,7 @@ const signInWithPhNum = async (req, res, next) => {
                         appName: 'Pack Ur Bags',
                         routeName: 'SignIn User Route',
                         data: {
-                            sessionToken: userLoginData.token,
+                            sessionToken: userLoginData.userAuthToken,
                             firstName: userLoginData.user.firstName
                         }
                     }
@@ -209,12 +209,13 @@ const signUp = async (req, res, next) => {
     if (req.body.password === req.body.confirmPassword) {
         const userEmail = req.body.email;
         const userPhNum = req.body.mobileNumber;
+        const userFirstName = req.body.firstName;
         const user = new userSchema(req.body);
-        const userWithEmail = new userSchema.findOne({
+        const userWithEmail = await userSchema.findOne({
             email: userEmail
         });
-        const userWithPhNum = new userSchema.findOne({
-            email: userPhNum
+        const userWithPhNum = await userSchema.findOne({
+            mobileNumber: userPhNum
         });
         if (userWithEmail || userWithPhNum) {
             res.status(403).send({
@@ -223,7 +224,7 @@ const signUp = async (req, res, next) => {
                 dataObject: {
                     appName: 'Pack Ur Bags',
                     routeName: 'Signup User Route',
-                    data: `Existing User found with the given ${userWithEmail ? ' email-id ' : ''} ${userWithEmail && userWithPhNum ? 'and' : ''} ${userWithPhNum ? ' phone number ' : ''}. Try Again.`
+                    data: `Existing User found with the given ${userWithEmail ? 'email-id' : ''}${userWithEmail && userWithPhNum ? ' and ' : ''}${userWithPhNum ? 'phone number' : ''}. Try Again.`
                 }
             });
         } else {
@@ -240,9 +241,6 @@ const signUp = async (req, res, next) => {
                     }
                 });
             } else {
-                // const userName = newUser.userName;
-                const userFirstName = newUser.firstName;
-                const userPhNum = newUser.mobileNumber;
                 try {
                     const options = {
                         'method': 'POST',
@@ -279,6 +277,7 @@ const signUp = async (req, res, next) => {
                                 }
                             });
                         } else {
+                            console.log(userFirstName, 'js');
                             res.status(200).send({
                                 message: 'User Created and Notified Successfully.',
                                 status: 200,

@@ -42,6 +42,16 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         required: true
+    },
+    lastUpdateDateTime: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
+    userType: {
+        type: String,
+        required: true,
+        default: 'passenger'
     }
 });
 
@@ -70,7 +80,7 @@ userSchema.methods.getNewAuthToken = function (email, mobileNumber) {
 };
 
 userSchema.statics.findByCredentialsEmail = async (email, password) => {
-    const user = await userSchema.findOne({
+    const user = await mongooseUserSchema.findOne({
         email: email
     });
 
@@ -85,7 +95,7 @@ userSchema.statics.findByCredentialsEmail = async (email, password) => {
 };
 
 userSchema.statics.findByCredentialsPhNum = async (mobileNumber, password) => {
-    const user = await userSchema.findOne({
+    const user = await mongooseUserSchema.findOne({
         mobileNumber: mobileNumber
     });
 

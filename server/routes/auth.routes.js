@@ -18,6 +18,18 @@ router.get('/', (req, res) => {
 });
 // ! Backend Test Auth Route
 
+// ! User Registration
+// ? ${BASE_URL}/auth/register
+router.post('/register', authController.signUp);
+
+// ! User Login with Email
+// ? ${BASE_URL}/auth/login/email
+router.post('/login/email', authController.signInWithEmail);
+
+// ! User Login with Phone Number
+// ? ${BASE_URL}/auth/login/phone
+router.post('/login/phone', authController.signInWithPhNum);
+
 // ! User Logout
 // ? ${BASE_URL}/auth/logout
 router.post('/logout', authGuard, authController.logout);

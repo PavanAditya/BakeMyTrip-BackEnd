@@ -26,4 +26,8 @@ router.get('/all', userController.allUserDetails);
 // ? ${BASE_URL}/users/one
 router.get('/one', authGuard, userController.singleUserDetails);
 
+// ! Update Single User Details
+// ? ${BASE_URL}/users/update
+router.put('/update', userController.updateUserDetails);
+
 module.exports = router;
