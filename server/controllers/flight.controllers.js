@@ -82,10 +82,9 @@ const singleFlightDetails = async (req, res, next) => {
 
 const routeFlightDetails = async (req, res, next) => {
     try {
-        const routeFlightDetails = await flightSchema.find({
-            from: req.body.from,
-            to: req.body.to,
-        });
+        console.log(req.params.searchQuery, 'flight search');
+        console.log(JSON.parse(req.params.searchQuery), 'flight search parsed');
+        const routeFlightDetails = await flightSchema.find({}); // ? needed to be changed
         if (!routeFlightDetails) {
             res.status(404).send({
                 message: 'Flight Not Found.',

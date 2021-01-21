@@ -3,54 +3,66 @@ const { mongoose } = require('../db/mongoose.config');
 const flightSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: false,
     },
     from: {
         type: String,
-        required: true,
+        required: false,
     },
     to: {
         type: String,
-        required: true,
+        required: false,
     },
     price: {
         type: Number,
-        required: true
+        required: false
     },
     numOfStops: {
         type: Number,
         default: 0,
-        required: true
+        required: false
     },
     arrival: {
         type: String,
-        required: true,
+        required: false,
     },
     dept: {
         type: String,
-        required: true,
+        required: false,
     },
     nomOfSeats: {
         type: Number,
-        required: true
+        required: false
     },
-    seatsBooked: {
+    seatsAvailable: {
         type: Number,
-        required: true
+        required: false
     },
     flightImage: {
         type: String,
-        required: true,
+        required: false,
+    },
+    flightTail: {
+        type: String,
+        required: false,
+    },
+    brand: {
+        type: String,
+        required: false,
     },
     handicappedAllowed: {
         type: Boolean,
         default: false,
-        required: true,
+        required: false,
     },
+    ancillaryServices: [{
+        type: String,
+        required: false,
+    }],
     createdDate: {
         type: Date,
         default: Date.now,
-        required: true
+        required: false
     }
 });
 

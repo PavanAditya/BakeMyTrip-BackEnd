@@ -22,11 +22,11 @@ router.get('/', (req, res) => {
 router.get('/all', flightController.allFlightDetails);
 
 // ! Get Selected route Flights Details
-// ?  ${BASE_URL}/flights/:from/:to
-router.get('/flights/:from/:to', flightController.routeFlightDetails);
+// ?  ${BASE_URL}/flights/search/:searchQuery
+router.get('/search/:searchQuery', flightController.routeFlightDetails);
 
 // ! Get Single Flight Details
 // ?  ${BASE_URL}/flights/one/:id
-router.get('/flights/one/:id', flightController.singleFlightDetails);
+router.get('/one/:id', flightController.singleFlightDetails);
 
 module.exports = router;
