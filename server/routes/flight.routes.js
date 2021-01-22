@@ -23,7 +23,7 @@ router.get('/all', flightController.allFlightDetails);
 
 // ! Get Selected route Flights Details
 // ?  ${BASE_URL}/flights/search/:searchQuery
-router.get('/search/:searchQuery', flightController.routeFlightDetails);
+router.get('/search/:searchQuery', flightController.searchFlightDetails);
 
 // ! Get Single Flight Details
 // ?  ${BASE_URL}/flights/one/:id

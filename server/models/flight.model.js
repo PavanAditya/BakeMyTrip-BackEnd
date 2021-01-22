@@ -30,7 +30,7 @@ const flightSchema = mongoose.Schema({
         type: String,
         required: false,
     },
-    nomOfSeats: {
+    numOfSeats: {
         type: Number,
         required: false
     },
