@@ -58,12 +58,7 @@ const flightSchema = mongoose.Schema({
     ancillaryServices: [{
         type: String,
         required: false,
-    }],
-    createdDate: {
-        type: Date,
-        default: Date.now,
-        required: false
-    }
+    }]
 });
 
 const mongooseFlightSchema = new mongoose.model('flights', flightSchema);
